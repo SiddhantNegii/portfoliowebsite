@@ -148,6 +148,12 @@ const ChatbotPage = () => {
     setInput('');
     setIsStreaming(true);
 
+    const updatedMessages = [
+      ...messages,
+      { role: 'user', content: userMessage },
+    ];
+    setMessages(updatedMessages);
+
     try {
       const response = await fetch('https://groqbackend.onrender.com/chat', {
         method: 'POST',
@@ -155,11 +161,10 @@ const ChatbotPage = () => {
         body: JSON.stringify({
           messages: [
             { role: 'system', content: SYSTEM_PROMPT },
-            ...messages.map((msg) => ({
-              role: 'assistant',
-              content: msg.text,
+            ...updatedMessages.map((msg) => ({
+              role: msg.role,
+              content: msg.content,
             })),
-            { role: 'user', content: userMessage },
           ],
         }),
       });
@@ -173,8 +178,8 @@ const ChatbotPage = () => {
       const decoder = new TextDecoder();
       let botMessage = '';
 
-      // Start streaming placeholder
-      setMessages((prev) => [...prev, { sender: 'bot-stream', text: '' }]);
+      // Add placeholder for streaming response
+      setMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
 
       while (true) {
         const { done, value } = await reader.read();
@@ -185,26 +190,19 @@ const ChatbotPage = () => {
 
         setMessages((prev) =>
           prev.map((msg, i, arr) =>
-            msg.sender === 'bot-stream' && i === arr.length - 1
-              ? { ...msg, text: botMessage }
+            msg.role === 'assistant' && i === arr.length - 1
+              ? { ...msg, content: botMessage }
               : msg
           )
         );
       }
-
-      // Finalize the streamed message
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.sender === 'bot-stream' ? { sender: 'bot', text: msg.text } : msg
-        )
-      );
     } catch (err) {
       console.error('Chatbot error:', err);
       setMessages((prev) => [
         ...prev,
         {
-          sender: 'bot',
-          text:
+          role: 'assistant',
+          content:
             `⚠️ Echoes couldn't fetch a reply.\n\n` +
             `🛠️ Reason: ${err.message || 'Unknown error.'}\n\n` +
             `🔁 Check:\n• Backend at https://groqbackend.onrender.com/chat\n• GROQ_API_KEY\n• Groq API status`,
@@ -247,12 +245,12 @@ const ChatbotPage = () => {
               <div
                 key={idx}
                 className={`max-w-[85%] px-4 py-2 rounded-lg whitespace-pre-wrap ${
-                  msg.sender === 'bot' || msg.sender === 'bot-stream'
-                    ? 'bg-gray-200 dark:bg-gray-700 text-black dark:text-white self-start'
-                    : ''
+                  msg.role === 'user'
+                    ? 'bg-blue-100 dark:bg-blue-900 self-end text-black dark:text-white'
+                    : 'bg-gray-200 dark:bg-gray-700 self-start text-black dark:text-white'
                 }`}
               >
-                {msg.text}
+                <strong>{msg.role === 'user' ? 'You' : 'Echoes'}:</strong> {msg.content}
               </div>
             ))}
             <div ref={messagesEndRef} />
