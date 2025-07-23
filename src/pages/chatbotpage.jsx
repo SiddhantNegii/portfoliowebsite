@@ -29,24 +29,28 @@ const ChatbotPage = () => {
     setMessages((prev) => [...prev, { sender: 'user', text: userMessage }]);
     setInput('');
     setIsStreaming(true);
-    
+
     try {
       const response = await fetch('https://groqbackend.onrender.com/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'moonshotai/kimi-k2-instruct',
-          prompt: userMessage, // ✅ this must be 'prompt'
-          }),
+          prompt: userMessage,
+        }),
       });
 
       if (!response.ok || !response.body) {
-        throw new Error('No response body');
+        const text = await response.text();
+        throw new Error(`Bad response: ${response.status} - ${text}`);
       }
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let botMessage = '';
+
+      // 👇 Initialize empty streaming message
+      setMessages((prev) => [...prev, { sender: 'bot-stream', text: '' }]);
 
       const streamMessage = async () => {
         while (true) {
@@ -57,21 +61,17 @@ const ChatbotPage = () => {
           botMessage += chunk;
 
           setMessages((prev) => {
-            const last = prev[prev.length - 1];
-            if (last?.sender === 'bot-stream') {
-              const updated = [...prev];
-              updated[updated.length - 1] = {
-                sender: 'bot-stream',
-                text: botMessage,
-              };
+            const updated = [...prev];
+            const lastIndex = updated.findIndex((m) => m.sender === 'bot-stream');
+            if (lastIndex !== -1) {
+              updated[lastIndex] = { sender: 'bot-stream', text: botMessage };
               return updated;
-            } else {
-              return [...prev, { sender: 'bot-stream', text: chunk }];
             }
+            return [...updated, { sender: 'bot-stream', text: botMessage }];
           });
         }
 
-        // Finalize bot-stream message
+        // Finalize streaming message
         setMessages((prev) =>
           prev.map((msg) =>
             msg.sender === 'bot-stream' ? { sender: 'bot', text: msg.text } : msg
@@ -83,11 +83,17 @@ const ChatbotPage = () => {
       await streamMessage();
     } catch (err) {
       console.error('Chatbot error:', err);
+
+      const errorMessage =
+        `⚠️ Echoes couldn't fetch a reply.\n` +
+        `Reason: ${err.message || 'Unknown error.'}\n` +
+        `Check if the backend at https://groqbackend.onrender.com/ is running and accessible.`;
+
       setMessages((prev) => [
         ...prev,
         {
           sender: 'bot',
-          text: "Oops! Echoes couldn't fetch a reply right now. Try again shortly.",
+          text: errorMessage,
         },
       ]);
       setIsStreaming(false);
