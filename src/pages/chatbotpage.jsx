@@ -31,7 +31,7 @@ const ChatbotPage = () => {
     setIsStreaming(true);
 
     try {
-      const response = await fetch('https://groqbackend.onrender.com/', {
+      const response = await fetch('https://groqbackend.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -49,7 +49,7 @@ const ChatbotPage = () => {
       const decoder = new TextDecoder();
       let botMessage = '';
 
-      // 👇 Initialize empty streaming message
+      // Add initial streaming placeholder
       setMessages((prev) => [...prev, { sender: 'bot-stream', text: '' }]);
 
       const streamMessage = async () => {
@@ -71,7 +71,6 @@ const ChatbotPage = () => {
           });
         }
 
-        // Finalize streaming message
         setMessages((prev) =>
           prev.map((msg) =>
             msg.sender === 'bot-stream' ? { sender: 'bot', text: msg.text } : msg
@@ -85,9 +84,12 @@ const ChatbotPage = () => {
       console.error('Chatbot error:', err);
 
       const errorMessage =
-        `⚠️ Echoes couldn't fetch a reply.\n` +
-        `Reason: ${err.message || 'Unknown error.'}\n` +
-        `Check if the backend at https://groqbackend.onrender.com/ is running and accessible.`;
+        `⚠️ Echoes couldn't fetch a reply.\n\n` +
+        `🛠️ Reason: ${err.message || 'Unknown error.'}\n` +
+        `🔁 Check that:\n` +
+        `• The backend is deployed at https://groqbackend.onrender.com/chat\n` +
+        `• The GROQ_API_KEY is valid and correctly named on Render\n` +
+        `• The Groq API itself is not returning errors`;
 
       setMessages((prev) => [
         ...prev,
@@ -147,7 +149,7 @@ const ChatbotPage = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Area */}
+          {/* Input */}
           <div className="flex items-center gap-2 border-t pt-2">
             <textarea
               rows={1}
