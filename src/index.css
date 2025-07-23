@@ -1,0 +1,20 @@
+/* index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html{
+  scroll-behavior: smooth;
+}
+:root {
+  --bg-color: theme('colors.light.bg');
+  --text-color: theme('colors.light.black');
+}
+
+.dark {
+  --bg-color: theme('colors.dark.bg');
+  --text-color: theme('colors.dark.accent');
+}
+
+body {
+  @apply bg-[var(--bg-color)] text-[var(--text-color)];
+}
