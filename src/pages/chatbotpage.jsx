@@ -29,15 +29,15 @@ const ChatbotPage = () => {
     setMessages((prev) => [...prev, { sender: 'user', text: userMessage }]);
     setInput('');
     setIsStreaming(true);
-
+    
     try {
       const response = await fetch('https://groqbackend.onrender.com/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'moonshotai/kimi-k2-instruct',
-          message: userMessage, // 👈 match backend expectation
-        }),
+          prompt: userMessage, // ✅ this must be 'prompt'
+          }),
       });
 
       if (!response.ok || !response.body) {
