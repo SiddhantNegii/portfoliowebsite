@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Navbar from '../components/navbar';
 import Footer from '../sections/footer';
 import EchoesBot from '/avatar.jpg';
@@ -14,6 +14,10 @@ const ChatbotPage = () => {
   const [isStreaming, setIsStreaming] = useState(false);
   const messagesEndRef = useRef(null);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -21,61 +25,73 @@ const ChatbotPage = () => {
   const handleSend = async () => {
     if (!input.trim() || isStreaming) return;
 
-    const userPrompt = input.trim();
-    setMessages((prev) => [...prev, { sender: 'user', text: userPrompt }]);
+    const userMessage = input.trim();
+    setMessages((prev) => [...prev, { sender: 'user', text: userMessage }]);
     setInput('');
     setIsStreaming(true);
 
-    const response = await fetch('https://groqbackend.onrender.com/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'moonshotai/kimi-k2-instruct',
-        prompt: userPrompt,
-      }),
-    });
-
-    if (!response.body) {
-      setMessages((prev) => [
-        ...prev,
-        { sender: 'bot', text: 'Oops. I couldn’t get a response right now.' },
-      ]);
-      setIsStreaming(false);
-      return;
-    }
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let botMessage = '';
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      botMessage += decoder.decode(value, { stream: true });
-
-      setMessages((prev) => {
-        const updated = [...prev];
-        const last = updated[updated.length - 1];
-        if (last?.sender === 'bot-stream') {
-          updated[updated.length - 1].text = botMessage;
-        } else {
-          updated.push({ sender: 'bot-stream', text: botMessage });
-        }
-        return updated;
+    try {
+      const response = await fetch('https://groqbackend.onrender.com/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'moonshotai/kimi-k2-instruct',
+          message: userMessage, // 👈 match backend expectation
+        }),
       });
 
-      scrollToBottom();
+      if (!response.ok || !response.body) {
+        throw new Error('No response body');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let botMessage = '';
+
+      const streamMessage = async () => {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          botMessage += chunk;
+
+          setMessages((prev) => {
+            const last = prev[prev.length - 1];
+            if (last?.sender === 'bot-stream') {
+              const updated = [...prev];
+              updated[updated.length - 1] = {
+                sender: 'bot-stream',
+                text: botMessage,
+              };
+              return updated;
+            } else {
+              return [...prev, { sender: 'bot-stream', text: chunk }];
+            }
+          });
+        }
+
+        // Finalize bot-stream message
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.sender === 'bot-stream' ? { sender: 'bot', text: msg.text } : msg
+          )
+        );
+        setIsStreaming(false);
+      };
+
+      await streamMessage();
+    } catch (err) {
+      console.error('Chatbot error:', err);
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: 'bot',
+          text: "Oops! Echoes couldn't fetch a reply right now. Try again shortly.",
+        },
+      ]);
+      setIsStreaming(false);
     }
-
-    // Replace temp streaming label
-    setMessages((prev) =>
-      prev.map((msg) =>
-        msg.sender === 'bot-stream' ? { sender: 'bot', text: msg.text } : msg
-      )
-    );
-
-    setIsStreaming(false);
   };
 
   const handleKeyPress = (e) => {
