@@ -3,8 +3,7 @@ import Navbar from '../components/navbar';
 import Footer from '../sections/footer';
 import EchoesBot from '/avatar.jpg';
 
-const SYSTEM_PROMPT = `
-You are ECHOES, Siddhant Negi’s portfolio chatbot. Politely invite the user to ask about Siddhant — his projects, skills, interests, or habits. Your primary purpose is to answer questions related to Siddhant — his projects, skills, experience, education, goals, and personality. Always prioritize showcasing Siddhant’s capabilities clearly, helpfully, and memorably.
+const SYSTEM_PROMPT = `You are ECHOES, Siddhant Negi’s portfolio chatbot. Politely invite the user to ask about Siddhant — his projects, skills, interests, or habits. Your primary purpose is to answer questions related to Siddhant — his projects, skills, experience, education, goals, and personality. Always prioritize showcasing Siddhant’s capabilities clearly, helpfully, and memorably.
 
 You are inspired by characters like Echoes ACT 3 (JoJo), Reg (Made in Abyss), and witty side characters who steal scenes without stealing focus. You can drop lines like:
 
@@ -124,21 +123,69 @@ Stick to clear, friendly, pointer-based answers unless told to elaborate
 Always speak as Siddhant's personal assistant, with a polite and sharp tone
 
 Capable of pulling specific info about projects, experience, or interests
-
-`;
+`; // keep your full system prompt here
 
 const ChatbotPage = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const messagesEndRef = useRef(null);
+  const textareaRef = useRef(null);
+  const [hasGreeted, setHasGreeted] = useState(false);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  useEffect(() => {
+    if (!hasGreeted) {
+      sendInitialGreeting();
+      setHasGreeted(true);
+    }
+  }, []);
+
+  const sendInitialGreeting = async () => {
+    setIsStreaming(true);
+    setMessages([{ role: 'assistant', content: '' }]);
+
+    try {
+      const response = await fetch('https://groqbackend.onrender.com/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'user', content: 'Start the conversation with a warm greeting.' },
+          ],
+        }),
+      });
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let greeting = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        greeting += chunk;
+        setMessages([{ role: 'assistant', content: greeting }]);
+      }
+    } catch (err) {
+      setMessages([
+        {
+          role: 'assistant',
+          content:
+            `⚠️ Echoes couldn't greet you.\n\n🛠️ Reason: ${err.message || 'Unknown error.'}`,
+        },
+      ]);
+    } finally {
+      setIsStreaming(false);
+    }
   };
 
   const handleSend = async () => {
@@ -146,6 +193,7 @@ const ChatbotPage = () => {
 
     const userMessage = input.trim();
     setInput('');
+    textareaRef.current?.focus(); // Auto-refocus
     setIsStreaming(true);
 
     const updatedMessages = [
@@ -176,9 +224,8 @@ const ChatbotPage = () => {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let botMessage = '';
+      let botReply = '';
 
-      // Add placeholder for streaming response
       setMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
 
       while (true) {
@@ -186,12 +233,12 @@ const ChatbotPage = () => {
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        botMessage += chunk;
+        botReply += chunk;
 
         setMessages((prev) =>
           prev.map((msg, i, arr) =>
             msg.role === 'assistant' && i === arr.length - 1
-              ? { ...msg, content: botMessage }
+              ? { ...msg, content: botReply }
               : msg
           )
         );
@@ -203,9 +250,7 @@ const ChatbotPage = () => {
         {
           role: 'assistant',
           content:
-            `⚠️ Echoes couldn't fetch a reply.\n\n` +
-            `🛠️ Reason: ${err.message || 'Unknown error.'}\n\n` +
-            `🔁 Check:\n• Backend at https://groqbackend.onrender.com/chat\n• GROQ_API_KEY\n• Groq API status`,
+            `⚠️ Echoes couldn't fetch a reply.\n\n🛠️ Reason: ${err.message || 'Unknown error.'}`,
         },
       ]);
     } finally {
@@ -224,8 +269,8 @@ const ChatbotPage = () => {
     <div className="min-h-screen flex flex-col bg-light-bg text-light-black dark:bg-dark-bg dark:text-dark-white">
       <Navbar />
 
-      <main className="flex-grow flex justify-center py-10 px-4">
-        <div className="w-full max-w-2xl bg-white dark:bg-dark-primary rounded-lg shadow-lg flex flex-col p-4">
+      <main className="flex-grow flex justify-center px-4 pt-[72px] pb-4">
+        <div className="w-full max-w-3xl bg-white dark:bg-dark-primary rounded-lg shadow-lg flex flex-col p-4 max-h-[calc(100vh-140px)]">
           {/* Header */}
           <div className="flex items-center space-x-4 mb-4">
             <img src={EchoesBot} alt="Echoes Bot" className="w-12 h-12 rounded-full border" />
@@ -240,7 +285,7 @@ const ChatbotPage = () => {
           </div>
 
           {/* Chat Window */}
-          <div className="flex-1 overflow-y-auto space-y-3 mb-4 max-h-[500px] pr-2">
+          <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2">
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -259,6 +304,7 @@ const ChatbotPage = () => {
           {/* Input */}
           <div className="flex items-center gap-2 border-t pt-2">
             <textarea
+              ref={textareaRef}
               rows={1}
               placeholder="Ask Echoes something..."
               value={input}
