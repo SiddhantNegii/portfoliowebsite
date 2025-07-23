@@ -35,8 +35,18 @@ const ChatbotPage = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'moonshotai/kimi-k2-instruct',
-          prompt: userMessage,
+          messages: [
+            ...messages
+              .filter((msg) => msg.sender === 'user' || msg.sender === 'bot')
+              .map((msg) => ({
+                role: msg.sender === 'user' ? 'user' : 'assistant',
+                content: msg.text,
+              })),
+            {
+              role: 'user',
+              content: userMessage,
+            },
+          ],
         }),
       });
 
@@ -49,55 +59,48 @@ const ChatbotPage = () => {
       const decoder = new TextDecoder();
       let botMessage = '';
 
-      // Add initial streaming placeholder
+      // Placeholder for streamed content
       setMessages((prev) => [...prev, { sender: 'bot-stream', text: '' }]);
 
-      const streamMessage = async () => {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
 
-          const chunk = decoder.decode(value, { stream: true });
-          botMessage += chunk;
+        const chunk = decoder.decode(value, { stream: true });
+        botMessage += chunk;
 
-          setMessages((prev) => {
-            const updated = [...prev];
-            const lastIndex = updated.findIndex((m) => m.sender === 'bot-stream');
-            if (lastIndex !== -1) {
-              updated[lastIndex] = { sender: 'bot-stream', text: botMessage };
-              return updated;
-            }
-            return [...updated, { sender: 'bot-stream', text: botMessage }];
-          });
-        }
+        setMessages((prev) => {
+          const updated = [...prev];
+          const index = updated.findIndex((msg) => msg.sender === 'bot-stream');
+          if (index !== -1) {
+            updated[index] = { sender: 'bot-stream', text: botMessage };
+          }
+          return updated;
+        });
+      }
 
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.sender === 'bot-stream' ? { sender: 'bot', text: msg.text } : msg
-          )
-        );
-        setIsStreaming(false);
-      };
-
-      await streamMessage();
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.sender === 'bot-stream' ? { sender: 'bot', text: msg.text } : msg
+        )
+      );
     } catch (err) {
       console.error('Chatbot error:', err);
-
-      const errorMessage =
-        `⚠️ Echoes couldn't fetch a reply.\n\n` +
-        `🛠️ Reason: ${err.message || 'Unknown error.'}\n` +
-        `🔁 Check that:\n` +
-        `• The backend is deployed at https://groqbackend.onrender.com/chat\n` +
-        `• The GROQ_API_KEY is valid and correctly named on Render\n` +
-        `• The Groq API itself is not returning errors`;
 
       setMessages((prev) => [
         ...prev,
         {
           sender: 'bot',
-          text: errorMessage,
+          text:
+            `⚠️ Echoes couldn't fetch a reply.\n\n` +
+            `🛠️ Reason: ${err.message || 'Unknown error.'}\n` +
+            `🔁 Check that:\n` +
+            `• The backend is deployed at https://groqbackend.onrender.com/chat\n` +
+            `• The GROQ_API_KEY is valid and named correctly on Render\n` +
+            `• The Groq API isn’t returning internal errors`,
         },
       ]);
+    } finally {
       setIsStreaming(false);
     }
   };
@@ -117,11 +120,7 @@ const ChatbotPage = () => {
         <div className="w-full max-w-2xl bg-white dark:bg-dark-primary rounded-lg shadow-lg flex flex-col p-4">
           {/* Header */}
           <div className="flex items-center space-x-4 mb-4">
-            <img
-              src={EchoesBot}
-              alt="Echoes Bot"
-              className="w-12 h-12 rounded-full border"
-            />
+            <img src={EchoesBot} alt="Echoes Bot" className="w-12 h-12 rounded-full border" />
             <div>
               <h2 className="text-xl font-bold text-dark-secondary dark:text-light-secondary">
                 Echoes Companion
@@ -149,7 +148,7 @@ const ChatbotPage = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
+          {/* Input Box */}
           <div className="flex items-center gap-2 border-t pt-2">
             <textarea
               rows={1}
