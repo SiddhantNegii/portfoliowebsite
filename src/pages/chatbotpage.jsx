@@ -193,11 +193,7 @@ const ChatbotPage = () => {
 
     const userMessage = input.trim();
     setInput('');
-      useEffect(() => {
-      scrollToBottom();
-      textareaRef.current?.focus(); // Auto-refocus after Echoes responds
-}, [messages]);
-
+    textareaRef.current?.focus(); // Auto-refocus
     setIsStreaming(true);
 
     const updatedMessages = [
