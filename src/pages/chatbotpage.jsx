@@ -280,7 +280,7 @@ const ChatbotPage = () => {
                 Echoes Companion
               </h2>
               <p className="text-sm italic text-gray-600 dark:text-gray-300">
-                “Let’s make it stand out, one punch at a time.”
+                “Let’s make it stand out.”
               </p>
             </div>
           </div>
