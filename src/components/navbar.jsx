@@ -1,6 +1,40 @@
 import React from 'react';
 import { useTheme } from '../context/themecontext';
 
+const SunIcon = () => (
+  <svg viewBox="0 0 64 64" fill="none" className="w-5 h-5">
+    <circle cx="32" cy="32" r="12" fill="#facc15" />
+    {Array.from({ length: 8 }).map((_, i) => {
+      const angle = (i * Math.PI) / 4;
+      const x1 = 32 + 16 * Math.cos(angle);
+      const y1 = 32 + 16 * Math.sin(angle);
+      const x2 = 32 + 22 * Math.cos(angle);
+      const y2 = 32 + 22 * Math.sin(angle);
+      return (
+        <line
+          key={i}
+          x1={x1}
+          y1={y1}
+          x2={x2}
+          y2={y2}
+          stroke="#facc15"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      );
+    })}
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg viewBox="0 0 64 64" fill="none" className="w-5 h-5">
+    <circle cx="32" cy="32" r="14" fill="#e5e7eb" />
+    <circle cx="40" cy="26" r="4" fill="#d1d5db" />
+    <circle cx="24" cy="36" r="3" fill="#d1d5db" />
+    <circle cx="36" cy="40" r="2" fill="#d1d5db" />
+  </svg>
+);
+
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const isDarkMode = theme === 'dark';
@@ -40,22 +74,16 @@ const Navbar = () => {
       {/* Custom toggle switch */}
       <div
         onClick={toggleTheme}
-        className={`cursor-pointer w-20 h-10 rounded-full flex items-center px-1 transition-all duration-500
+        className={`cursor-pointer w-20 h-10 rounded-full flex items-center px-1 transition-all duration-500 shadow-inner
           ${isDarkMode ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-yellow-300 to-blue-400'}
         `}
       >
         <div
-          className={`w-8 h-8 rounded-full shadow-md transform transition-transform duration-500 ease-in-out
-            ${isDarkMode
-              ? 'translate-x-10 bg-white flex items-center justify-center'
-              : 'translate-x-0 bg-yellow-400 flex items-center justify-center'}
+          className={`w-8 h-8 rounded-full shadow-lg transform transition-transform duration-500 ease-in-out flex items-center justify-center
+            ${isDarkMode ? 'translate-x-10 bg-gray-200' : 'translate-x-0 bg-yellow-400'}
           `}
         >
-          {isDarkMode ? (
-            <span className="text-sm">🌙</span>
-          ) : (
-            <span className="text-sm">☀️</span>
-          )}
+          {isDarkMode ? <MoonIcon /> : <SunIcon />}
         </div>
       </div>
     </nav>
