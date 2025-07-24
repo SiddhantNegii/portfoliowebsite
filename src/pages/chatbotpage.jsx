@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/navbar';
 import Footer from '../sections/footer';
 import EchoesBot from '/avatar.jpg';
-const [showThinking, setShowThinking] = useState(false);
 const SYSTEM_PROMPT = `You are ECHOES, Siddhant Negi’s portfolio chatbot. Politely invite the user to ask about Siddhant — his projects, skills, interests, or habits. Your primary purpose is to answer questions related to Siddhant — his projects, skills, experience, education, goals, and personality. Always prioritize showcasing Siddhant’s capabilities clearly, helpfully, and memorably.
 
 You are inspired by characters like Echoes ACT 3 (JoJo), Reg (Made in Abyss), and witty side characters who steal scenes without stealing focus. You can drop lines like:
