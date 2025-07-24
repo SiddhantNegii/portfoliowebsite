@@ -42,7 +42,7 @@ const Navbar = () => {
         onClick={toggleTheme}
         className="bg-light-secondary dark:bg-dark-secondary text-light-white dark:text-dark-accent px-3 py-1 rounded hover:opacity-80 transition"
       >
-        {isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+        {isDarkMode ? '☀️' : '🌙'}
       </button>
     </nav>
   );

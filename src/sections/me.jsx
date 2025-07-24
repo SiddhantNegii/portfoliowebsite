@@ -38,8 +38,9 @@ const Me = () => {
 
         {/* Redirect Button to Chatbot */}
         <motion.div
-          className="flex items-center gap-4 mt-6 cursor-pointer bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-full shadow-md w-fit transition-transform hover:scale-105"
-          initial={{ opacity: 0, y: 20 }}
+  className="group flex items-center gap-4 mt-6 cursor-pointer bg-primary text-white py-3 px-6 rounded-full shadow-md w-fit transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#3b82f6] hover:shadow-lg hover:shadow-blue-400"
+
+  initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
           onClick={goToChatbot}
@@ -49,7 +50,7 @@ const Me = () => {
             alt="Echoes Bot Avatar"
             className="w-10 h-10 rounded-full border border-white"
           />
-          <span className="text-md font-semibold">Talk to Echoes Companion</span>
+          <span className="text-md font-semibold">Wanna talk Echoes?</span>
         </motion.div>
       </div>
 

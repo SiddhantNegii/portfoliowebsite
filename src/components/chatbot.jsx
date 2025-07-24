@@ -1,5 +1,5 @@
 import React from 'react';
-import EchoesBot from '/avatar.jpg';
+import EchoesBot from '/avatar.png';
 
 const ChatbotCard = () => {
   return (
