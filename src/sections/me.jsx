@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // for navigation
-import EchoesBot from '/avatar.jpg';
+import EchoesBot from '/avatar.png';
 
 const Me = () => {
   const navigate = useNavigate();
