@@ -71,20 +71,33 @@ const Navbar = () => {
         ))}
       </div>
 
-      {/* Custom toggle switch */}
-      <div
-        onClick={toggleTheme}
-        className={`cursor-pointer w-20 h-10 rounded-full flex items-center px-1 transition-all duration-500 shadow-inner
-          ${isDarkMode ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-yellow-300 to-blue-400'}
-        `}
-      >
+      {/* Right: Toggle + Resume */}
+      <div className="flex items-center gap-4 pr-6">
+        {/* Toggle switch */}
         <div
-          className={`w-8 h-8 rounded-full shadow-lg transform transition-transform duration-500 ease-in-out flex items-center justify-center
-            ${isDarkMode ? 'translate-x-10 bg-gray-200' : 'translate-x-0 bg-yellow-400'}
+          onClick={toggleTheme}
+          className={`cursor-pointer w-20 h-10 rounded-full flex items-center px-1 transition-all duration-500 shadow-inner
+            ${isDarkMode ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-yellow-300 to-blue-400'}
           `}
         >
-          {isDarkMode ? <MoonIcon /> : <SunIcon />}
+          <div
+            className={`w-8 h-8 rounded-full shadow-lg transform transition-transform duration-500 ease-in-out flex items-center justify-center
+              ${isDarkMode ? 'translate-x-10 bg-gray-200' : 'translate-x-0 bg-yellow-400'}
+            `}
+          >
+            {isDarkMode ? <MoonIcon /> : <SunIcon />}
+          </div>
         </div>
+
+        {/* Resume Button */}
+        <a
+          href="https://drive.google.com/drive/folders/1Brxbntg-LMhTU5FmgqTw_PIyo7faXdY2"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs px-4 py-2 rounded-md bg-accent text-white font-medium shadow hover:bg-accent-dark transition-all"
+        >
+          Résumé
+        </a>
       </div>
     </nav>
   );
