@@ -123,21 +123,22 @@ Always speak as Siddhant's personal assistant, with a polite and sharp tone
 
 Capable of pulling specific info about projects, experience, or interests
 `;
+
 const ChatbotPage = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const [hasGreeted, setHasGreeted] = useState(false);
-  const [showThinking, setShowThinking] = useState(false); // ✅ Added
+  const [showThinking, setShowThinking] = useState(false);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
+  const navigate = useNavigate(); // ← added
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     textareaRef.current?.focus();
   }, [messages]);
 
-  // Initial greeting
   useEffect(() => {
     if (!hasGreeted) {
       setHasGreeted(true);
@@ -182,7 +183,6 @@ const ChatbotPage = () => {
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-
         fullText += decoder.decode(value, { stream: true });
         setMessages([{ role: 'assistant', content: fullText }]);
       }
@@ -270,7 +270,16 @@ const ChatbotPage = () => {
     <div className="min-h-screen flex flex-col bg-light-bg text-light-black dark:bg-dark-bg dark:text-dark-white">
       <Navbar />
 
-      <main className="flex-grow flex justify-center px-4 pt-[72px] pb-4">
+      <main className="flex-grow flex justify-center px-4 pt-[72px] pb-4 relative">
+        {/* ⬅️ Back Button */}
+        <button
+          onClick={() => navigate('/')}
+          className="absolute left-4 top-4 w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-black dark:text-white flex items-center justify-center shadow-md hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+          aria-label="Go back"
+        >
+          ←
+        </button>
+
         <div className="w-full max-w-3xl bg-white dark:bg-dark-primary rounded-lg shadow-lg flex flex-col p-4 max-h-[calc(100vh-140px)]">
           {/* Header */}
           <div className="flex items-center space-x-4 mb-4">
@@ -300,13 +309,12 @@ const ChatbotPage = () => {
               </div>
             ))}
 
-            {/* ✅ Typing indicator */}
+            {/* Typing indicator */}
             {showThinking && (
               <div className="self-start text-gray-500 dark:text-gray-400 italic px-4 animate-pulse">
                 Echoes is thinking<span className="ml-1">...</span>
               </div>
             )}
-
             <div ref={messagesEndRef} />
           </div>
 
