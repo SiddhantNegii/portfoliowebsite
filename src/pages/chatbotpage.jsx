@@ -146,6 +146,12 @@ const ChatbotPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+  if (!isStreaming) {
+    textareaRef.current?.focus();
+  }
+}, [isStreaming]);
+
   const greetUser = async () => {
     setIsStreaming(true);
     setMessages([{ role: 'assistant', content: '' }]);
