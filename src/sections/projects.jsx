@@ -20,7 +20,7 @@ const projects = [
   {
     title: "Portfolio Website + Groq Chatbot",
     description:
-      "Personal portfolio built with React and Node.js. Integrated Groq API to power a chatbot capable of answering dynamic queries about projects.",
+      "Personal portfolio built with React and Node.js. Integrated Groq API to power a chatbot capable of answering dynamic queries.",
     tech: ["React.js", "Node.js", "Vercel", "Groq API", "GitHub Pages"],
     link: "#"
   },
