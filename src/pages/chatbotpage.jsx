@@ -128,16 +128,12 @@ const ChatbotPage = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
+  const [hasGreeted, setHasGreeted] = useState(false);
+  const [showThinking, setShowThinking] = useState(false); // ✅ Added
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
-  const [hasGreeted, setHasGreeted] = useState(false);
 
   useEffect(() => {
-    {showThinking && (
-  <div className="self-start text-gray-500 dark:text-gray-400 italic px-4">
-    Echoes is thinking<span className="animate-pulse">...</span>
-  </div>
-)}
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     textareaRef.current?.focus();
   }, [messages]);
@@ -145,29 +141,28 @@ const ChatbotPage = () => {
   // Initial greeting
   useEffect(() => {
     if (!hasGreeted) {
-      greetUser();
+      setHasGreeted(true);
       setMessages([
-  {
-    role: 'assistant',
-    content:
-      "🕐 ECHOES is arriving...\n\n⚠️ Sometimes it takes about 30-45 seconds in the worst case. Don't worry — once he's here, he’ll respond promptly.",
-  },
-  { role: 'assistant', content: '' }
-]);
-
+        {
+          role: 'assistant',
+          content:
+            "🕐 ECHOES is arriving...\n\n⚠️ Sometimes it takes about 30–45 seconds in the worst case. Don't worry — once he's here, he’ll respond promptly.",
+        },
+        { role: 'assistant', content: '' },
+      ]);
+      greetUser();
     }
   }, []);
 
   useEffect(() => {
-  if (!isStreaming) {
-    textareaRef.current?.focus();
-  }
-}, [isStreaming]);
+    if (!isStreaming) {
+      textareaRef.current?.focus();
+    }
+  }, [isStreaming]);
 
   const greetUser = async () => {
     setIsStreaming(true);
     setShowThinking(true);
-    setMessages([{ role: 'assistant', content: '' }]);
 
     try {
       const res = await fetch('https://groqbackend.onrender.com/chat', {
@@ -190,14 +185,15 @@ const ChatbotPage = () => {
         if (done) break;
 
         fullText += decoder.decode(value, { stream: true });
-
         setMessages([{ role: 'assistant', content: fullText }]);
       }
     } catch (err) {
-      setMessages([{
-        role: 'assistant',
-        content: `⚠️ Echoes couldn't greet you.\n\n🛠️ ${err.message || 'Unknown error'}`,
-      }]);
+      setMessages([
+        {
+          role: 'assistant',
+          content: `⚠️ Echoes couldn't greet you.\n\n🛠️ ${err.message || 'Unknown error'}`,
+        },
+      ]);
     } finally {
       setIsStreaming(false);
       setShowThinking(false);
@@ -215,7 +211,7 @@ const ChatbotPage = () => {
     const updatedMessages = [
       ...messages,
       { role: 'user', content: userInput },
-      { role: 'assistant', content: '' } // placeholder for streamed reply
+      { role: 'assistant', content: '' },
     ];
 
     setMessages(updatedMessages);
@@ -227,7 +223,7 @@ const ChatbotPage = () => {
         body: JSON.stringify({
           messages: [
             { role: 'system', content: SYSTEM_PROMPT },
-            ...updatedMessages.filter(msg => msg.role !== 'assistant' || msg.content),
+            ...updatedMessages.filter((msg) => msg.role !== 'assistant' || msg.content),
           ],
         }),
       });
@@ -242,7 +238,7 @@ const ChatbotPage = () => {
 
         streamedReply += decoder.decode(value, { stream: true });
 
-        setMessages(prev =>
+        setMessages((prev) =>
           prev.map((msg, i) =>
             i === prev.length - 1 && msg.role === 'assistant'
               ? { ...msg, content: streamedReply }
@@ -251,7 +247,7 @@ const ChatbotPage = () => {
         );
       }
     } catch (err) {
-      setMessages(prev => [
+      setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
@@ -261,7 +257,6 @@ const ChatbotPage = () => {
     } finally {
       setIsStreaming(false);
       setShowThinking(false);
-
     }
   };
 
@@ -278,7 +273,6 @@ const ChatbotPage = () => {
 
       <main className="flex-grow flex justify-center px-4 pt-[72px] pb-4">
         <div className="w-full max-w-3xl bg-white dark:bg-dark-primary rounded-lg shadow-lg flex flex-col p-4 max-h-[calc(100vh-140px)]">
-          
           {/* Header */}
           <div className="flex items-center space-x-4 mb-4">
             <img src={EchoesBot} alt="Echoes Bot" className="w-12 h-12 rounded-full border" />
@@ -306,6 +300,14 @@ const ChatbotPage = () => {
                 <strong>{msg.role === 'user' ? 'You' : 'Echoes'}:</strong> {msg.content}
               </div>
             ))}
+
+            {/* ✅ Typing indicator */}
+            {showThinking && (
+              <div className="self-start text-gray-500 dark:text-gray-400 italic px-4 animate-pulse">
+                Echoes is thinking<span className="ml-1">...</span>
+              </div>
+            )}
+
             <div ref={messagesEndRef} />
           </div>
 
