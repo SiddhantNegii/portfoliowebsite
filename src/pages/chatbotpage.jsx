@@ -132,7 +132,6 @@ const ChatbotPage = () => {
   const textareaRef = useRef(null);
   const [hasGreeted, setHasGreeted] = useState(false);
 
-  // Scroll to bottom + refocus
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     textareaRef.current?.focus();
