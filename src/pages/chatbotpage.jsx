@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import Footer from '../sections/footer';
 import EchoesBot from '/avatar.png';
