@@ -50,7 +50,7 @@ const Me = () => {
             alt="Echoes Bot Avatar"
             className="w-10 h-10 rounded-full border border-white"
           />
-          <span className="text-md font-semibold">Wanna talk Echoes?</span>
+          <span className="text-md font-semibold">Whisper to Echoes</span>
         </motion.div>
       </div>
 
