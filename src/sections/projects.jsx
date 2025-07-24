@@ -70,10 +70,11 @@ export default function Projects() {
         <div className="grid md:grid-cols-2 gap-10">
           {projects.map((project, index) => (
             <motion.div
-              key={index}
-              className="bg-white dark:bg-neutral-900 p-6 rounded-lg shadow-md"
-              variants={item}
-            >
+  key={index}
+  className="bg-white dark:bg-neutral-900 p-6 rounded-lg shadow-md transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
+  variants={item}
+>
+
               <h3 className="text-xl font-semibold">{project.title}</h3>
               <p className="mt-2 text-gray-700 dark:text-gray-300">{project.description}</p>
               <div className="mt-3 flex flex-wrap gap-2 text-sm text-primary font-medium">
@@ -85,11 +86,12 @@ export default function Projects() {
               </div>
               {project.link && (
                 <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-4 text-blue-600 hover:underline"
-                >
+  href={project.link}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-block mt-4 text-blue-600 hover:text-blue-800 hover:underline transition-all duration-300"
+>
+
                   View Project →
                 </a>
               )}

@@ -6,10 +6,11 @@ const ChatbotCard = () => {
     <div className="max-w-xl mx-auto mt-10 p-6 text-white">
       <div className="flex items-center space-x-4">
         <img
-          src={EchoesBot}
-          alt="Echoes Bot"
-          className="w-16 h-16 rounded-full border border-gray-500 object-cover"
-        />
+  src={EchoesBot}
+  alt="Echoes Bot"
+  className="w-16 h-16 rounded-full border border-gray-500 object-cover transition-transform duration-300 hover:scale-105"
+/>
+
         <div>
           <h2 className="text-xl font-bold">Echoes Companion</h2>
           <p className="text-sm text-gray-300 italic">
@@ -19,9 +20,9 @@ const ChatbotCard = () => {
       </div>
 
       <div className="mt-6">
-        <p className="text-gray-200 mb-3">
-          Ask me anything about Siddhant’s portfolio, projects, or skills.
-        </p>
+        <p className="text-gray-200 mb-3 hover:text-white transition duration-300 cursor-pointer">
+  Ask me anything about Siddhant’s portfolio, projects, or skills.
+</p>
         <iframe
           src="https://your-chatbot-url.com/embed" // Replace with real embed URL
           className="w-full h-80 rounded-md border border-gray-600"

@@ -38,7 +38,7 @@ const Me = () => {
 
         {/* Redirect Button to Chatbot */}
         <motion.div
-          className="flex items-center gap-4 mt-6 cursor-pointer bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-full shadow-md w-fit"
+          className="flex items-center gap-4 mt-6 cursor-pointer bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-full shadow-md w-fit transition-transform hover:scale-105"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
@@ -61,10 +61,11 @@ const Me = () => {
         transition={{ duration: 1, delay: 0.5 }}
       >
         <img
-          src="/picture.jpg"
-          alt="Siddhant"
-          className="w-full rounded-full border-4 border-primary shadow-md"
-        />
+  src="/picture.jpg"
+  alt="Siddhant"
+  className="w-full rounded-full border-4 border-primary shadow-md transition-transform hover:scale-105"
+/>
+
       </motion.div>
     </section>
   );

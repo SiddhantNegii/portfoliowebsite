@@ -25,15 +25,15 @@ const Navbar = () => {
       {/* Left-aligned nav buttons */}
       <div className="flex items-center space-x-10 pl-10">
         {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => scrollToSection(item.id)}
-            className="relative text-sm hover:text-accent transition duration-200 group"
-          >
-            {item.label}
-            {/* Underline on hover */}
-            <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
-          </button>
+<button
+  key={item.id}
+  onClick={() => scrollToSection(item.id)}
+  className="relative text-sm hover:text-accent transition-all duration-300 ease-in-out group"
+>
+  {item.label}
+  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
+</button>
+
         ))}
       </div>
 
