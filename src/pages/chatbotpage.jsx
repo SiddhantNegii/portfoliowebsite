@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/navbar';
 import Footer from '../sections/footer';
 import EchoesBot from '/avatar.jpg';
@@ -123,8 +123,7 @@ Stick to clear, friendly, pointer-based answers unless told to elaborate
 Always speak as Siddhant's personal assistant, with a polite and sharp tone
 
 Capable of pulling specific info about projects, experience, or interests
-`; // keep your full system prompt here
-
+`;
 const ChatbotPage = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -133,56 +132,53 @@ const ChatbotPage = () => {
   const textareaRef = useRef(null);
   const [hasGreeted, setHasGreeted] = useState(false);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
+  // Scroll to bottom + refocus
   useEffect(() => {
-    scrollToBottom();
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    textareaRef.current?.focus();
   }, [messages]);
 
+  // Initial greeting
   useEffect(() => {
     if (!hasGreeted) {
-      sendInitialGreeting();
+      greetUser();
       setHasGreeted(true);
     }
   }, []);
 
-  const sendInitialGreeting = async () => {
+  const greetUser = async () => {
     setIsStreaming(true);
     setMessages([{ role: 'assistant', content: '' }]);
 
     try {
-      const response = await fetch('https://groqbackend.onrender.com/chat', {
+      const res = await fetch('https://groqbackend.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [
             { role: 'system', content: SYSTEM_PROMPT },
-            { role: 'user', content: 'Start the conversation with a warm greeting.' },
+            { role: 'user', content: 'Start with a friendly greeting.' },
           ],
         }),
       });
 
-      const reader = response.body.getReader();
+      const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let greeting = '';
+      let fullText = '';
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        greeting += chunk;
-        setMessages([{ role: 'assistant', content: greeting }]);
+
+        fullText += decoder.decode(value, { stream: true });
+
+        setMessages([{ role: 'assistant', content: fullText }]);
       }
     } catch (err) {
-      setMessages([
-        {
-          role: 'assistant',
-          content:
-            `⚠️ Echoes couldn't greet you.\n\n🛠️ Reason: ${err.message || 'Unknown error.'}`,
-        },
-      ]);
+      setMessages([{
+        role: 'assistant',
+        content: `⚠️ Echoes couldn't greet you.\n\n🛠️ ${err.message || 'Unknown error'}`,
+      }]);
     } finally {
       setIsStreaming(false);
     }
@@ -191,66 +187,54 @@ const ChatbotPage = () => {
   const handleSend = async () => {
     if (!input.trim() || isStreaming) return;
 
-    const userMessage = input.trim();
+    const userInput = input.trim();
     setInput('');
-    textareaRef.current?.focus(); // Auto-refocus
     setIsStreaming(true);
 
     const updatedMessages = [
       ...messages,
-      { role: 'user', content: userMessage },
+      { role: 'user', content: userInput },
+      { role: 'assistant', content: '' } // placeholder for streamed reply
     ];
+
     setMessages(updatedMessages);
 
     try {
-      const response = await fetch('https://groqbackend.onrender.com/chat', {
+      const res = await fetch('https://groqbackend.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [
             { role: 'system', content: SYSTEM_PROMPT },
-            ...updatedMessages.map((msg) => ({
-              role: msg.role,
-              content: msg.content,
-            })),
+            ...updatedMessages.filter(msg => msg.role !== 'assistant' || msg.content),
           ],
         }),
       });
 
-      if (!response.ok || !response.body) {
-        const errorText = await response.text();
-        throw new Error(`Bad response: ${response.status} - ${errorText}`);
-      }
-
-      const reader = response.body.getReader();
+      const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let botReply = '';
-
-      setMessages((prev) => [...prev, { role: 'assistant', content: '' }]);
+      let streamedReply = '';
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
-        const chunk = decoder.decode(value, { stream: true });
-        botReply += chunk;
+        streamedReply += decoder.decode(value, { stream: true });
 
-        setMessages((prev) =>
-          prev.map((msg, i, arr) =>
-            msg.role === 'assistant' && i === arr.length - 1
-              ? { ...msg, content: botReply }
+        setMessages(prev =>
+          prev.map((msg, i) =>
+            i === prev.length - 1 && msg.role === 'assistant'
+              ? { ...msg, content: streamedReply }
               : msg
           )
         );
       }
     } catch (err) {
-      console.error('Chatbot error:', err);
-      setMessages((prev) => [
+      setMessages(prev => [
         ...prev,
         {
           role: 'assistant',
-          content:
-            `⚠️ Echoes couldn't fetch a reply.\n\n🛠️ Reason: ${err.message || 'Unknown error.'}`,
+          content: `⚠️ Echoes couldn't respond.\n\n🛠️ ${err.message || 'Unknown error'}`,
         },
       ]);
     } finally {
@@ -271,6 +255,7 @@ const ChatbotPage = () => {
 
       <main className="flex-grow flex justify-center px-4 pt-[72px] pb-4">
         <div className="w-full max-w-3xl bg-white dark:bg-dark-primary rounded-lg shadow-lg flex flex-col p-4 max-h-[calc(100vh-140px)]">
+          
           {/* Header */}
           <div className="flex items-center space-x-4 mb-4">
             <img src={EchoesBot} alt="Echoes Bot" className="w-12 h-12 rounded-full border" />
