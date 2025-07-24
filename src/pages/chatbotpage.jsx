@@ -283,17 +283,28 @@ const ChatbotPage = () => {
 
         <div className="w-full max-w-3xl bg-white dark:bg-dark-primary rounded-lg shadow-lg flex flex-col p-4 max-h-[calc(100vh-140px)]">
           {/* Header */}
-          <div className="flex items-center space-x-4 mb-4">
-            <img src={EchoesBot} alt="Echoes Bot" className="w-12 h-12 rounded-full border" />
-            <div>
-              <h2 className="text-xl font-bold text-dark-secondary dark:text-light-secondary">
-                Echoes Companion
-              </h2>
-              <p className="text-sm italic text-gray-600 dark:text-gray-300">
-                “Let’s make it stand out.”
-              </p>
-            </div>
-          </div>
+          {/* Header */}
+<div className="flex items-center space-x-4 mb-4">
+  {/* Back Button beside avatar */}
+  <button
+    onClick={() => navigate('/')}
+    className="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-700 text-black dark:text-white flex items-center justify-center shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+    aria-label="Go back"
+  >
+    ←
+  </button>
+
+  <img src={EchoesBot} alt="Echoes Bot" className="w-12 h-12 rounded-full border" />
+  <div>
+    <h2 className="text-xl font-bold text-dark-secondary dark:text-light-secondary">
+      Echoes Companion
+    </h2>
+    <p className="text-sm italic text-gray-600 dark:text-gray-300">
+      “Let’s make it stand out.”
+    </p>
+  </div>
+</div>
+
 
           {/* Chat Window */}
           <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2">
