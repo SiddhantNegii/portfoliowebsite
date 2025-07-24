@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/navbar';
 import Footer from '../sections/footer';
 import EchoesBot from '/avatar.jpg';
-
+const [showThinking, setShowThinking] = useState(false);
 const SYSTEM_PROMPT = `You are ECHOES, Siddhant Negi’s portfolio chatbot. Politely invite the user to ask about Siddhant — his projects, skills, interests, or habits. Your primary purpose is to answer questions related to Siddhant — his projects, skills, experience, education, goals, and personality. Always prioritize showcasing Siddhant’s capabilities clearly, helpfully, and memorably.
 
 You are inspired by characters like Echoes ACT 3 (JoJo), Reg (Made in Abyss), and witty side characters who steal scenes without stealing focus. You can drop lines like:
@@ -133,6 +133,11 @@ const ChatbotPage = () => {
   const [hasGreeted, setHasGreeted] = useState(false);
 
   useEffect(() => {
+    {showThinking && (
+  <div className="self-start text-gray-500 dark:text-gray-400 italic px-4">
+    Echoes is thinking<span className="animate-pulse">...</span>
+  </div>
+)}
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     textareaRef.current?.focus();
   }, [messages]);
@@ -141,7 +146,15 @@ const ChatbotPage = () => {
   useEffect(() => {
     if (!hasGreeted) {
       greetUser();
-      setHasGreeted(true);
+      setMessages([
+  {
+    role: 'assistant',
+    content:
+      "🕐 ECHOES is arriving...\n\n⚠️ Sometimes it takes about 30-45 seconds in the worst case. Don't worry — once he's here, he’ll respond promptly.",
+  },
+  { role: 'assistant', content: '' }
+]);
+
     }
   }, []);
 
@@ -153,6 +166,7 @@ const ChatbotPage = () => {
 
   const greetUser = async () => {
     setIsStreaming(true);
+    setShowThinking(true);
     setMessages([{ role: 'assistant', content: '' }]);
 
     try {
@@ -186,6 +200,7 @@ const ChatbotPage = () => {
       }]);
     } finally {
       setIsStreaming(false);
+      setShowThinking(false);
     }
   };
 
@@ -195,6 +210,7 @@ const ChatbotPage = () => {
     const userInput = input.trim();
     setInput('');
     setIsStreaming(true);
+    setShowThinking(true);
 
     const updatedMessages = [
       ...messages,
@@ -244,6 +260,8 @@ const ChatbotPage = () => {
       ]);
     } finally {
       setIsStreaming(false);
+      setShowThinking(false);
+
     }
   };
 
@@ -301,7 +319,7 @@ const ChatbotPage = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyPress}
               disabled={isStreaming}
-              className="flex-1 resize-none rounded-md p-2 border border-gray-300 dark:border-gray-600 dark:bg-dark-secondary dark:text-white"
+              className="flex-1 resize-none rounded-md p-2 border border-gray-300 dark:border-gray-600 bg-white/80 dark:bg-white/10 backdrop-blur-md text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-600"
             />
             <button
               onClick={handleSend}
