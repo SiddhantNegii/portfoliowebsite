@@ -19,7 +19,13 @@ const About = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        I’m currently interning as a Security Engineer at Cvent, pursuing BTech in Computer Science. I’m passionate about ML, security automation, and building real-world tools like browser extension analyzers and internal bots.
+        I’m someone who loves exploring how things work — whether that’s training a machine learning model, uncovering security loopholes, or building tools that make life easier. I enjoy moving across domains, picking up new skills, and applying them in ways that solve real problems.
+
+My projects have taught me a lot — not just technically, but also in how to approach real-world challenges that have an impact beyond just code. They’ve reinforced how much I enjoy working on things that make a tangible difference.
+
+Outside of tech, I enjoy observing, questioning, and occasionally going down rabbit holes I didn't plan for — whether it's in anime lore, human psychology, or why my code worked yesterday but refuses to compile today. I believe life’s best when you’re constantly evolving — not just professionally, but as a person.
+
+If you’re working on something interesting — or just want to talk ideas, tech, or anything in between — I’m always open to connect.
       </motion.p>
     </section>
   );

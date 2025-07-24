@@ -4,24 +4,63 @@ import { motion, useAnimation, useInView } from "framer-motion";
 
 const projects = [
   {
-    title: "Cab Booking Website",
-    description: "A working Uber-like website with Google Maps, real-time cab location tracking, and closest cab assignment.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "Google Maps API"],
-    link: "https://yourcabapp.com"
-  },
-  {
-    title: "Car IoT Simulator",
-    description: "A car simulator controlled via an IoT dashboard using sensors and actuators. Built on Arduino and Python.",
-    tech: ["Arduino", "Python", "Serial Communication", "Sensors"],
+    title: "Forest Fire Detection using YOLOv8n",
+    description:
+      "Live forest fire detection using YOLOv8n trained on a custom dataset. Integrated with a buzzer and Gmail alert system for real-time deployment.",
+    tech: ["Python", "OpenCV", "YOLOv8n", "NumPy", "smtplib", "Webcam"],
     link: "#"
   },
   {
-    title: "Chrome Extension Risk Scorer",
-    description: "Extracts metadata and security features from Chrome extensions and gives a risk score using XGBoost.",
-    tech: ["Python", "Machine Learning", "Browser Security"],
+    title: "Motion-Controlled Car Simulator",
+    description:
+      "Physical car simulator controller using Arduino, tilt, and Hall sensors. Pedals and steering mapped to keyboard inputs for immersive gameplay.",
+    tech: ["Arduino", "C++", "Sensors", "Serial Communication"],
+    link: "#"
+  },
+  {
+    title: "Portfolio Website + Groq Chatbot",
+    description:
+      "Personal portfolio built with React and Node.js. Integrated Groq API to power a chatbot capable of answering dynamic queries about projects.",
+    tech: ["React.js", "Node.js", "Vercel", "Groq API", "GitHub Pages"],
+    link: "#"
+  },
+  {
+    title: "Touchless Gesture-Controlled Keyboard",
+    description:
+      "Virtual keyboard that detects hand gestures using MediaPipe and OpenCV. Optimized for use with medical gloves in offline settings.",
+    tech: ["Python", "OpenCV", "MediaPipe", "NumPy"],
+    link: "#"
+  },
+  {
+    title: "Twitter Sentiment Analysis",
+    description:
+      "Sentiment classifier trained on Twitter data using TF-IDF and Random Forest. Evaluated and visualized results using sklearn and matplotlib.",
+    tech: ["Python", "scikit-learn", "TF-IDF", "Pandas", "Matplotlib"],
+    link: "#"
+  },
+  {
+    title: "Chrome Extension Malware Detector",
+    description:
+      "Real-time malware detection extension using YARA rules and threat intelligence. Backend scanning in Python, alerts via browser notifications.",
+    tech: ["JavaScript", "Python", "YARA", "Chrome API"],
+    link: "#"
+  },
+  {
+    title: "Telegram Chatbot for University Helpdesk",
+    description:
+      "Python-based GUI chatbot linked with Telegram for GEHU students. Handled academic queries using regex and link buttons in Tkinter.",
+    tech: ["Python", "Tkinter", "Regex", "Telegram API"],
+    link: "#"
+  },
+  {
+    title: "Virtual Petrological Microscope",
+    description:
+      "Desktop app mimicking a microscope for rock/mineral samples. Supports zoom, rotate, and sample loading with Pillow and Tkinter.",
+    tech: ["Python", "Tkinter", "Pillow"],
     link: "#"
   }
 ];
+
 
 const container = {
   hidden: { opacity: 0 },

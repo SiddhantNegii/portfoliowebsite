@@ -3,12 +3,18 @@ import React, { useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect } from "react";
 
-const skills = [
-  "JavaScript", "React", "Next.js", "Node.js",
-  "Python", "Express", "MongoDB", "SQL",
-  "HTML", "CSS", "Tailwind", "Git",
-  "AWS", "Docker", "Linux", "Cybersecurity"
-];
+const skillGroups = {
+  "Languages": ["Python", "C++", "C", "Java", "JavaScript", "SQL", "HTML", "CSS"],
+  "Frameworks & Libraries": [
+    "React", "Next.js", "Express", "Tailwind", 
+    "NumPy", "Pandas", "scikit-learn", "TensorFlow", "PyTorch", "YOLO"
+  ],
+  "Dev Tools": ["Git", "GitHub", "Docker", "Jupyter", "VS Code", "Node.js"],
+  "Cloud & DevOps": ["AWS", "Jenkins", "Linux"],
+  "Security & Monitoring": ["Splunk", "Netskope", "Cybersecurity", "CrowdStrike"],
+  "API & Integrations": ["REST APIs", "Slack", "Glean", "OpenAI", "AuditBoard"],
+  "Databases": ["MongoDB", "SQL"]
+};
 
 const container = {
   hidden: { opacity: 0 },
@@ -51,17 +57,24 @@ export default function Skills() {
           Skills
         </motion.h2>
 
-        <motion.div className="flex flex-wrap justify-center gap-4" variants={container}>
-          {skills.map((skill, idx) => (
-            <motion.div
-              key={idx}
-              className="px-4 py-2 bg-white dark:bg-neutral-800 text-sm rounded-full border border-gray-300 dark:border-neutral-600 shadow-sm hover:scale-105 transition-transform"
-              variants={item}
-            >
-              {skill}
-            </motion.div>
-          ))}
-        </motion.div>
+        {Object.entries(skillGroups).map(([category, skills], idx) => (
+          <motion.div key={idx} className="mb-8" variants={container}>
+            <motion.h3 className="text-xl font-semibold text-secondary mb-4" variants={item}>
+              {category}
+            </motion.h3>
+            <div className="flex flex-wrap justify-center gap-4">
+              {skills.map((skill, index) => (
+                <motion.div
+                  key={index}
+                  className="px-4 py-2 bg-white dark:bg-neutral-800 text-sm rounded-full border border-gray-300 dark:border-neutral-600 shadow-sm hover:scale-105 transition-transform"
+                  variants={item}
+                >
+                  {skill}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </motion.div>
     </section>
   );

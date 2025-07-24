@@ -1,31 +1,16 @@
 import React from 'react';
+import { FaGithub, FaLinkedin, FaEnvelope, FaCode } from 'react-icons/fa';
 
 const Contact = () => {
-  const openEmailClient = () => {
-    const email = "siddhantnegi275@gmail.com";
-    const subject = "Let's Connect";
-    const body = "Hi Siddhant, I wanted to reach out...";
+  const email = "siddhantnegi275@gmail.com";
+  const subject = "Let's Connect";
+  const body = "Hi Siddhant, I wanted to reach out...";
 
-    const userAgent = window.navigator.userAgent.toLowerCase();
-
-    // Gmail
-    if (userAgent.includes("gmail") || userAgent.includes("chrome")) {
-      window.open(
-        `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`,
-        "_blank"
-      );
-    }
-    // Outlook
-    else if (userAgent.includes("outlook") || userAgent.includes("windows")) {
-      window.open(
-        `https://outlook.live.com/mail/0/deeplink/compose?to=${email}&subject=${subject}&body=${body}`,
-        "_blank"
-      );
-    }
-    // Fallback
-    else {
-      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-    }
+  const openGmail = () => {
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`,
+      "_blank"
+    );
   };
 
   return (
@@ -34,12 +19,42 @@ const Contact = () => {
       <p className="text-lg mb-6 text-gray-600 dark:text-gray-300">
         Have a question or want to work together? Feel free to reach out!
       </p>
-      <button
-        onClick={openEmailClient}
-        className="inline-block bg-light-secondary dark:bg-dark-secondary text-light-white dark:text-dark-accent px-6 py-3 rounded-lg hover:opacity-80 transition"
-      >
-        📩 Say Hello
-      </button>
+
+      <div className="flex justify-center gap-4 flex-wrap">
+        <button
+          onClick={openGmail}
+          className="flex items-center gap-2 bg-red-500 text-white px-5 py-2 rounded-lg hover:opacity-90 transition"
+        >
+          <FaEnvelope /> Gmail
+        </button>
+
+        <a
+          href="https://www.linkedin.com/in/siddhantnegii/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-lg hover:opacity-90 transition"
+        >
+          <FaLinkedin /> LinkedIn
+        </a>
+
+        <a
+          href="https://github.com/siddhantnegii"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-gray-800 text-white px-5 py-2 rounded-lg hover:opacity-90 transition"
+        >
+          <FaGithub /> GitHub
+        </a>
+
+        <a
+          href="https://leetcode.com/siddhantnegi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-yellow-500 text-black px-5 py-2 rounded-lg hover:opacity-90 transition"
+        >
+          <FaCode /> LeetCode
+        </a>
+      </div>
     </div>
   );
 };

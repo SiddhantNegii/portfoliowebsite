@@ -33,7 +33,7 @@ const Me = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          A Security & ML Enthusiast who likes to build cool things and learn faster than LLMs 👨‍💻✨
+          Code, crack, create — exploring ML, Security, and Dev with a generalist mindset and a debugger’s patience.
         </motion.p>
 
         {/* Redirect Button to Chatbot */}

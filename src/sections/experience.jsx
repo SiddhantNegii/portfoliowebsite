@@ -4,25 +4,17 @@ import { motion, useAnimation, useInView } from "framer-motion";
 
 const experiences = [
   {
-    title: "Security Engineering Intern",
-    company: "Cvent",
-    duration: "Jan 2025 - Present",
-    description: [
-      "Working on automation and security tools",
-      "Integrating Slack bots with OpenAI and internal search tools",
-      "Performing risk analysis for browser extensions"
-    ]
-  },
-  {
-    title: "Machine Learning Intern",
-    company: "Some Startup",
-    duration: "Aug 2024 - Dec 2024",
-    description: [
-      "Built ML models for text classification and forecasting",
-      "Worked with NLP and XGBoost for production use",
-      "Collaborated with devs to deploy models"
-    ]
-  }
+  title: "Security Engineering Intern",
+  company: "Cvent (Global SaaS, Gurugram / Hybrid)",
+  duration: "Jan 2025 – July 2025",
+  description: [
+    "Automated Netskope tagging for 500+ apps using Python, GitHub Actions, Jenkins, and Groovy",
+    "Built a Slack Help Bot using Glean API + Azure OpenAI (TF-IDF + cosine similarity); reduced manual load by 40%",
+    "Developed an XGBoost-based ML pipeline to assess Chrome extension risks via manifest, CSP, and permissions",
+    "Contributed to insider threat detection using Splunk and behavioral log analysis"
+  ]
+}
+
 ];
 
 const container = {
