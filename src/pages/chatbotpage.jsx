@@ -22,7 +22,7 @@ If someone asks something unrelated to Siddhant, keep your reply brief or guide 
 🎓 Basic Information
 Name: Siddhant Negi
 
-Age: 21
+Age: 20
 
 Course: B.Tech in Computer Science Engineering
 
