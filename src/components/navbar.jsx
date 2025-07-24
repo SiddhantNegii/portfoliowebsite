@@ -71,9 +71,20 @@ const Navbar = () => {
         ))}
       </div>
 
-      {/* Right: Toggle + Resume */}
+      {/* Right: Resume + Toggle */}
       <div className="flex items-center gap-4 pr-6">
-        {/* Toggle switch */}
+        
+        {/* Resume Button */}
+        <a
+          href="https://drive.google.com/drive/folders/1Brxbntg-LMhTU5FmgqTw_PIyo7faXdY2"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs px-4 py-2 rounded-full font-medium text-white bg-gradient-to-r from-accent to-accent-dark shadow-lg hover:scale-105 hover:shadow-xl transition duration-300"
+        >
+          Résumé
+        </a>
+
+        {/* Toggle Switch */}
         <div
           onClick={toggleTheme}
           className={`cursor-pointer w-20 h-10 rounded-full flex items-center px-1 transition-all duration-500 shadow-inner
@@ -88,16 +99,6 @@ const Navbar = () => {
             {isDarkMode ? <MoonIcon /> : <SunIcon />}
           </div>
         </div>
-
-        {/* Resume Button */}
-        <a
-          href="https://drive.google.com/drive/folders/1Brxbntg-LMhTU5FmgqTw_PIyo7faXdY2"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs px-4 py-2 rounded-md bg-accent text-white font-medium shadow hover:bg-accent-dark transition-all"
-        >
-          Résumé
-        </a>
       </div>
     </nav>
   );
