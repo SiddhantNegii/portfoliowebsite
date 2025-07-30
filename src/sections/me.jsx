@@ -62,7 +62,7 @@ const Me = () => {
         transition={{ duration: 1, delay: 0.5 }}
       >
         <img
-  src="/picture.jpg"
+  src="/picture.png"
   alt="Siddhant"
   className="w-full rounded-full border-4 border-primary shadow-md transition-transform hover:scale-105"
 />
