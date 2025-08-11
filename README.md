@@ -1,6 +1,7 @@
 # Portfolio Website + AI Chatbot
 
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/7ceef7ef-edf9-4ab1-9c45-6a5afe561892" />
+<img width="1897" height="929" alt="image" src="https://github.com/user-attachments/assets/c5b9c8fb-5718-4db9-a531-90255bf58fd5" />
 
 
 A modern personal portfolio website with integrated Groq API-powered chatbot for dynamic interactions.
