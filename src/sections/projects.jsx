@@ -4,60 +4,81 @@ import { motion, useAnimation, useInView } from "framer-motion";
 
 const projects = [
   {
+  title: "Doodle Frenzy – Real-Time Multiplayer Drawing Game",
+  description:
+    "A real-time multiplayer drawing and guessing game inspired by Pictionary. Players draw, guess via live chat, earn points based on speed, and compete across multiple rounds using Socket.IO-powered synchronization.",
+  tech: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Node.js",
+    "Express",
+    "Socket.IO",
+    "MongoDB",
+    "Fabric.js",
+    "Tailwind CSS"
+  ],
+  link: "https://doodle-duel-y5h9.onrender.com/"
+},
+{
+  title: "SchedulerSim – CPU Scheduling Algorithm Simulator",
+  description:
+    "An interactive CPU scheduling simulator that visualizes core OS algorithms like FCFS, Round Robin, SJF, and SRTF in real time. Allows custom process configuration with dynamic charts, animations, and theme support.",
+  tech: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Radix UI",
+    "Framer Motion",
+    "Recharts",
+    "Zod",
+    "Vercel"
+  ],
+  link: "https://scheduler-sim.vercel.app/"
+}
+  ,{
     title: "Forest Fire Detection using YOLOv8n",
     description:
       "Live forest fire detection using YOLOv8n trained on a custom dataset. Integrated with a buzzer and Gmail alert system for real-time deployment.",
     tech: ["Python", "OpenCV", "YOLOv8n", "NumPy", "smtplib", "Webcam"],
-    link: "#"
+    link: "https://github.com/SiddhantNegii/Forest-Fire-Detection"
   },
-  {
-    title: "Motion-Controlled Car Simulator",
-    description:
-      "Physical car simulator controller using Arduino, tilt, and Hall sensors. Pedals and steering mapped to keyboard inputs for immersive gameplay.",
-    tech: ["Arduino", "C++", "Sensors", "Serial Communication"],
-    link: "#"
-  },
+
   {
     title: "Portfolio Website + Groq Chatbot",
     description:
       "Personal portfolio built with React and Node.js. Integrated Groq API to power a chatbot capable of answering dynamic queries.",
     tech: ["React.js", "Node.js", "Vercel", "Groq API", "GitHub Pages"],
-    link: "#"
+    link: "portfoliowebsite-rho-five.vercel.app/"
   },
   {
     title: "Touchless Gesture-Controlled Keyboard",
     description:
       "Virtual keyboard that detects hand gestures using MediaPipe and OpenCV. Optimized for use with medical gloves in offline settings.",
     tech: ["Python", "OpenCV", "MediaPipe", "NumPy"],
-    link: "#"
+    link: "https://github.com/SiddhantNegii/Touchless-Gesture-Controlled-Keyboard"
   },
   {
     title: "Twitter Sentiment Analysis",
     description:
       "Sentiment classifier trained on Twitter data using TF-IDF and Random Forest. Evaluated and visualized results using sklearn and matplotlib.",
     tech: ["Python", "scikit-learn", "TF-IDF", "Pandas", "Matplotlib"],
-    link: "#"
+    link: "https://github.com/SiddhantNegii/Sentiment-Analysis-using-AI"
   },
   {
     title: "Chrome Extension Malware Detector",
     description:
       "Real-time malware detection extension using YARA rules and threat intelligence. Backend scanning in Python, alerts via browser notifications.",
     tech: ["JavaScript", "Python", "YARA", "Chrome API"],
-    link: "#"
-  },
-  {
-    title: "Telegram Chatbot for University Helpdesk",
-    description:
-      "Python-based GUI chatbot linked with Telegram for GEHU students. Handled academic queries using regex and link buttons in Tkinter.",
-    tech: ["Python", "Tkinter", "Regex", "Telegram API"],
-    link: "#"
+    link: "https://github.com/SiddhantNegii/Malware-Detection-Browser-Extension"
   },
   {
     title: "Virtual Petrological Microscope",
     description:
       "Desktop app mimicking a microscope for rock/mineral samples. Supports zoom, rotate, and sample loading with Pillow and Tkinter.",
     tech: ["Python", "Tkinter", "Pillow"],
-    link: "#"
+    link: "https://github.com/SiddhantNegii/Virtual-Petrological-Microscope"
   }
 ];
 
