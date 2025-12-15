@@ -4,7 +4,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 
 const projects = [
   {
-  title: "Doodle Frenzy – Real-Time Multiplayer Drawing Game",
+  title: "Doodle Duel – Real-Time Multiplayer Drawing Game",
   description:
     "A real-time multiplayer drawing and guessing game inspired by Pictionary. Players draw, guess via live chat, earn points based on speed, and compete across multiple rounds using Socket.IO-powered synchronization.",
   tech: [
