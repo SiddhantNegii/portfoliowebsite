@@ -1,67 +1,64 @@
-# Portfolio Website + AI Chatbot
+# Siddhant's Room
 
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/7ceef7ef-edf9-4ab1-9c45-6a5afe561892" />
-<img width="1897" height="929" alt="image" src="https://github.com/user-attachments/assets/c5b9c8fb-5718-4db9-a531-90255bf58fd5" />
+My portfolio as a small 3D room you can walk around in. Built with React, Vite and three.js.
 
+- **MacBook**: about, experience, education, certifications, skills
+- **Monitor**: projects
+- **Arcade cabinet**: favourite anime, games and movies. Browse it like an arcade: arrow keys or the joystick move, Enter or any cabinet button selects, Esc goes back
+- **Couch**: hobbies
+- **Fridge**: favourite food
+- **Telephone**: contact
+- **Floor lamp**: switches the whole site between night (the default) and day
+- **The cat**: wanders around, meows now and then, and yawns and snores through naps on the couch. Click to pet him; drag to pick him up and drop him anywhere, even on top of the fridge
+- **Sound**: every sound is synthesized in the browser with Web Audio (no audio files); the mute choice is remembered
 
-A modern personal portfolio website with integrated Groq API-powered chatbot for dynamic interactions.
+There is also a plain list view (top right) with the same content, and the site falls back to it when WebGL isn't available.
 
-## ```Features```
-- **Responsive Portfolio**: Showcase projects, skills, and experience
-- **AI Chatbot**: Groq API integration for intelligent Q&A
-- **Modern Stack**: Built with React and Node.js
-- **CI/CD**: Automated deployments via Vercel
-- **Contactless UI**: Clean, accessible design
+## Editing content
 
-## ```Technologies```
-- Frontend: React.js
-- Backend: Node.js
-- Deployment: Vercel, GitHub Pages
-- AI: Groq API
-- Build Tools: PostCSS, npm
+Everything on the site comes from [`content.json`](content.json) in the repo root. Edit it, push, and Vercel rebuilds the site.
 
-## ```Installation```
+- `site`: browser tab title, search and link-preview descriptions, and the no-JavaScript fallback text
+- `profile`: name, headline, tagline, email
+- `hoverLabels`: tooltips for the cat and the lamp
+- `room`: one entry per object (`macbook`, `monitor`, `arcade`, `couch`, `fridge`, `phone`). Their order sets the order of the buttons along the bottom. Each has a hover `label`, a `jump` button label, an `eyebrow`, a `title` and a list of `sections`. `macbook.screen` holds the lines on the laptop's terminal.
 
-1. ```Clone repository```:
-```bash
-git clone https://github.com/yourusername/portfoliowebsite.git
-cd portfoliowebsite
-```
+The arcade's channels are its sections that have `chips`. The monitor's screen lists the first five projects under `monitor`.
 
-2. ```Install dependencies```:
+A section can hold any of these fields:
+
+| Field    | Shows                                     |
+| -------- | ----------------------------------------- |
+| `h`      | section heading                           |
+| `p`      | paragraph                                 |
+| `list`   | bullet list                               |
+| `chips`  | tag chips (an empty list hides the section) |
+| `more`   | adds an "and a lot more" line after the chips |
+| `stats`  | `[number, label]` tiles                   |
+| `groups` | named groups of chips                     |
+| `items`  | entries with title `t`, subtitle `s`, optional `links`, `list`, `live` |
+| `email`  | email address with a copy button         |
+| `links`  | `[label, url]` buttons                    |
+| `coin`   | blinking arcade-style line                |
+
+JSON is strict: use double quotes, no trailing commas, no comments. If the file is broken, `npm run build` fails and points at the line.
+
+The 3D scene lives in `src/scene/`: `objects.js` builds the furniture and camera views, `cat.js` is the cat, and `Room.js` handles the camera, clicks and day/night lighting.
+
+## Run
+
 ```bash
 npm install
+npm run dev
 ```
 
-3. ```Set up Groq API```:
-   - Get API key from [Groq Cloud](https://console.groq.com)
-   - Create .env file with:
+## Build
+
 ```bash
-REACT_APP_GROQ_API_KEY=your_api_key_here
+npm run build
+npm run preview
 ```
 
-4. ```Run development server```:
-```bash
-npm start
-```
+## Deploy
 
-## ```Deployment```
-The project is configured for:
-- **Vercel**: Automatic deployments on push
-- **GitHub Pages**: Static site hosting
-
-## ```Chatbot Features```
-- Natural language processing
-- Dynamic response generation
-- Context-aware conversations
-- Rate-limited API calls
-
-## ```Project Structure```
-```
-/public          - Static assets
-/src             - React components
-  /components    - UI components
-  /pages         - Page layouts
-  /services      - API integrations
-  /styles        - CSS modules
-```
+On Vercel, import the repo with the **Vite** preset: build command `npm run build`, output directory `dist`. No environment variables needed.

@@ -1,0 +1,432 @@
+{
+  "site": {
+    "title": "Siddhant Negi · Cloud / DevSecOps Engineer",
+    "description": "Siddhant Negi, DevOps engineer at TartanHQ. AWS, SRE and cloud security. Explore my room: experience on the MacBook, projects on the monitor, favourite anime in the arcade.",
+    "shareDescription": "DevOps engineer at TartanHQ. AWS, SRE and cloud security. Come look around my room.",
+    "noscript": "Siddhant Negi, DevOps engineer at TartanHQ (AWS, SRE, cloud security). Email: siddhantnegi275@gmail.com · github.com/SiddhantNegii · linkedin.com/in/siddhantnegii"
+  },
+  "profile": {
+    "name": "Siddhant Negi",
+    "headline": "Cloud / DevSecOps Engineer",
+    "tagline": "AWS · SRE · cloud security",
+    "email": "siddhantnegi275@gmail.com"
+  },
+  "hoverLabels": {
+    "cat": "pet me · drag me ♥",
+    "lampDay": "lights off ☾",
+    "lampNight": "lights on ☀"
+  },
+  "room": {
+    "macbook": {
+      "label": "whoami",
+      "jump": "MacBook · whoami",
+      "eyebrow": "MacBook · ~/siddhant",
+      "title": "Cloud / DevSecOps Engineer",
+      "screen": [
+        "$ whoami",
+        "devops engineer @ tartanhq",
+        "$ terraform apply",
+        "Apply complete! 4 stacks.",
+        "$ aws ce monthly-spend",
+        "▼ 33% and counting",
+        "$ _"
+      ],
+      "sections": [
+        {
+          "h": "About",
+          "p": "DevOps engineer at TartanHQ. I joined as an intern and went full-time in Aug 2026. I run AWS infrastructure for a fintech platform in a small team: releases, incident response, cost control and security hardening. Before that I did security engineering at Cvent. I like building things end to end, from infra to backend to small games."
+        },
+        {
+          "h": "Highlights",
+          "stats": [
+            [
+              "~33%",
+              "cut in monthly AWS spend"
+            ],
+            [
+              "~10/wk",
+              "production releases"
+            ],
+            [
+              "2,200+",
+              "IAM policies audited"
+            ],
+            [
+              "1,300+",
+              "security bugs batch-fixed"
+            ]
+          ]
+        },
+        {
+          "h": "Experience",
+          "items": [
+            {
+              "t": "DevOps Engineer · TartanHQ",
+              "s": "Aug 2026 – present",
+              "list": [
+                "Own AWS ops (ECS, RDS, API Gateway, ALB/NLB, CloudFront) at a growing startup, with ~10 prod releases a week as services scale",
+                "Key contributor to a ~33% cut in monthly AWS spend: removed unused resources, resized dev/test databases, scheduled non-prod shutdowns",
+                "Run weekly cost reviews and monthly cost reports for leadership, and help decide savings-plan choices",
+                "Responded live to a production attack: traced traffic through logs, blocked malicious IPs and exposed endpoints, and wrote the RCA",
+                "Hardened IAM and access controls, audited prod for open APIs, generated SBOMs and ran phishing simulations",
+                "Built a four-stack Terraform repo to migrate dev/test/sandbox into a new AWS account, and deployed a 5-service ECS stack for a client",
+                "Documented platform architectures (D2 diagrams, flow docs) for client and audit reviews"
+              ]
+            },
+            {
+              "t": "DevOps Intern · TartanHQ",
+              "s": "Feb – Jul 2026",
+              "list": [
+                "Shipped a data governance service end to end: FastAPI, Celery/Redis, Postgres RDS, ECS behind an ALB, CodeBuild CI",
+                "Automated start/stop of 10+ ECS/RDS/EC2 resources with a Python/boto3 Lambda",
+                "Led CSPM remediation: audited 2,200+ IAM policies (500+ removed), enabled logging on 13 API Gateways and X-Ray on 9, enforced MFA",
+                "Triaged 10,000+ SonarQube findings and used Claude to batch-fix 1,300+ security bugs",
+                "Fixed critical gaps from a VAPT report and built a rate-limited AWS Marketplace Lambda"
+              ]
+            },
+            {
+              "t": "Security Engineering Intern · Cvent India",
+              "s": "Jan – Jul 2025",
+              "list": [
+                "Automated Netskope–AuditBoard workflows in Python across 600+ SaaS apps, with a GitHub Actions/Jenkins pipeline",
+                "Extended the “Thala” Slack bot with Glean API retrieval and sanctioned-app checks, cutting L1 effort ~40%",
+                "Built an XGBoost pipeline scoring Chrome-extension risk, trained on 30,000+ datapoints",
+                "Refactored a MITRE ATT&CK heatmap script for better TTP coverage"
+              ]
+            }
+          ]
+        },
+        {
+          "h": "Education & certs",
+          "list": [
+            "B.Tech CSE, Graphic Era Hill University (2022–2026) · CGPA 7.9",
+            "AWS Skill Builder: Cloud Practitioner and AI FastTrack training, with the AWS Certified AI Practitioner exam upcoming",
+            "Amazon ML Summer School 2025",
+            "CrowdStrike CrowdTour 2025 · Datadog Live 2026"
+          ]
+        },
+        {
+          "h": "Skills",
+          "groups": {
+            "Cloud": [
+              "AWS: EC2, ECS, Lambda, RDS, S3, IAM, VPC",
+              "ALB/NLB",
+              "API Gateway",
+              "CloudFront",
+              "CloudWatch",
+              "WAF",
+              "GCP (basics)"
+            ],
+            "DevOps & IaC": [
+              "Terraform",
+              "Docker",
+              "CodePipeline/CodeBuild",
+              "GitHub Actions",
+              "Jenkins",
+              "Linux",
+              "Bash",
+              "Python (boto3)"
+            ],
+            "Security": [
+              "IAM least-privilege",
+              "CSPM",
+              "VAPT",
+              "SBOM",
+              "SonarQube",
+              "Snyk",
+              "Gophish",
+              "Netskope",
+              "CrowdStrike",
+              "Splunk",
+              "MITRE ATT&CK"
+            ],
+            "Languages & data": [
+              "Python",
+              "SQL",
+              "JavaScript/TypeScript",
+              "FastAPI",
+              "Node.js",
+              "PostgreSQL",
+              "MongoDB",
+              "Redis",
+              "DynamoDB"
+            ],
+            "AI & ML": [
+              "LLM-assisted engineering (Claude)",
+              "MCP automation",
+              "PyTorch",
+              "YOLOv8",
+              "OpenCV",
+              "XGBoost",
+              "scikit-learn"
+            ]
+          }
+        }
+      ]
+    },
+    "monitor": {
+      "label": "projects",
+      "jump": "Monitor · projects",
+      "eyebrow": "Monitor · ~/projects",
+      "title": "Things I’ve built",
+      "sections": [
+        {
+          "h": "Featured",
+          "items": [
+            {
+              "t": "Doodlebomb",
+              "s": "Real-time multiplayer drawing game · Node.js, Express, Socket.IO, Next.js, MongoDB",
+              "live": true,
+              "links": [
+                [
+                  "Play live",
+                  "https://doodle-bomb.onrender.com/"
+                ],
+                [
+                  "GitHub",
+                  "https://github.com/SiddhantNegii/doodle-duel"
+                ]
+              ],
+              "list": [
+                "Rebuilt a two-service college prototype into one Render service, cutting code 66% and dependencies 52%",
+                "Cut drawing-sync bandwidth ~95% (~12 KB snapshots to ~76 B strokes) and up to 11 DB writes/s per game",
+                "Added session resume, presence tracking, host failover and auto-recovery after server restarts, tested by killing the server mid-game",
+                "Wrote 80+ automated multi-client checks"
+              ]
+            },
+            {
+              "t": "AI Fitness Trainer",
+              "s": "FastAPI, Next.js, MediaPipe, PostgreSQL · still in development",
+              "live": true,
+              "links": [
+                [
+                  "Try it",
+                  "https://ai-trainer-frontend.onrender.com/"
+                ],
+                [
+                  "GitHub",
+                  "https://github.com/SiddhantNegii/AI-Trainer"
+                ]
+              ],
+              "list": [
+                "Real-time webcam pose detection that counts reps and scores form for squats, push-ups and planks",
+                "Workout and meal recommendations via ExerciseDB and Spoonacular, deployed on Render"
+              ]
+            }
+          ]
+        },
+        {
+          "h": "Earlier",
+          "items": [
+            {
+              "t": "OS Algorithm Visualizer",
+              "s": "Next.js, TypeScript, D3.js · simulator for CPU scheduling (FCFS, SJF, RR, Priority) and memory algorithms",
+              "links": [
+                [
+                  "GitHub",
+                  "https://github.com/SiddhantNegii/scheduler-sim"
+                ]
+              ]
+            },
+            {
+              "t": "Forest Fire Detection",
+              "s": "YOLOv8/v11, PyTorch, OpenCV · real-time webcam detection with automated SMTP alerts",
+              "links": [
+                [
+                  "GitHub",
+                  "https://github.com/SiddhantNegii/Forest-Fire-Detection"
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "arcade": {
+      "label": "player 1 faves",
+      "jump": "Arcade · faves",
+      "eyebrow": "Arcade · insert coin",
+      "title": "PLAYER 1 FAVES",
+      "arcade": true,
+      "sections": [
+        {
+          "h": "ANIME",
+          "more": true,
+          "chips": [
+            "Naruto",
+            "One Piece",
+            "Dragon Ball Z",
+            "Attack on Titan",
+            "Death Note",
+            "Demon Slayer",
+            "Jujutsu Kaisen",
+            "Naruto: Shippuden",
+            "Dragon Ball",
+            "My Hero Academia",
+            "Bleach",
+            "Dragon Ball Super",
+            "Sword Art Online",
+            "Tokyo Ghoul",
+            "Spy x Family",
+            "Chainsaw Man",
+            "One-Punch Man",
+            "JoJo’s Bizarre Adventure",
+            "Haikyu!!",
+            "Boruto: Naruto Next Generations",
+            "Tokyo Revengers",
+            "Black Clover",
+            "The Seven Deadly Sins",
+            "Vinland Saga",
+            "Fullmetal Alchemist: Brotherhood",
+            "Fullmetal Alchemist",
+            "Blue Lock",
+            "Mushoku Tensei: Jobless Reincarnation",
+            "KonoSuba",
+            "Classroom of the Elite",
+            "Mob Psycho 100",
+            "Jujutsu Kaisen 0",
+            "Demon Slayer: Mugen Train",
+            "Your Name",
+            "Suzume",
+            "Weathering with You",
+            "Bungo Stray Dogs",
+            "Dr. Stone",
+            "Berserk (1997)",
+            "Assassination Classroom",
+            "Kaguya-sama: Love Is War",
+            "Hellsing Ultimate",
+            "Baki",
+            "Black Butler",
+            "Goblin Slayer",
+            "Kakegurui",
+            "Miss Kobayashi’s Dragon Maid",
+            "Zom 100: Bucket List of the Dead",
+            "Akame ga Kill!",
+            "Parasyte: The Maxim",
+            "Monster",
+            "Toradora!",
+            "Tower of God",
+            "Fire Force",
+            "Danganronpa: The Animation",
+            "Tomodachi Game",
+            "Charlotte",
+            "Dororo",
+            "Death Parade",
+            "Angels of Death",
+            "The Devil Is a Part-Timer!",
+            "Grave of the Fireflies",
+            "Spirited Away",
+            "Kiki’s Delivery Service",
+            "Ride Your Wave",
+            "I Want to Eat Your Pancreas",
+            "5 Centimeters per Second",
+            "The Garden of Words",
+            "Inu-Oh",
+            "The Royal Tutor"
+          ]
+        },
+        {
+          "h": "GAMES",
+          "more": true,
+          "chips": [
+            "Genshin Impact",
+            "Tekken 8",
+            "Valorant",
+            "Brawl Stars",
+            "Clash Royale",
+            "Angry Birds"
+          ]
+        },
+        {
+          "h": "MOVIES",
+          "more": true,
+          "chips": [
+            "Spider-Man",
+            "The Dark Knight",
+            "Final Destination",
+            "Parasite",
+            "The Call",
+            "Terrifier",
+            "Insidious"
+          ]
+        },
+        {
+          "coin": "WE’LL GET ALONG IF YOU LIKE THESE"
+        }
+      ]
+    },
+    "couch": {
+      "label": "off the clock",
+      "jump": "Couch · hobbies",
+      "eyebrow": "Couch · hobbies",
+      "title": "When I’m not on call",
+      "sections": [
+        {
+          "p": "I just love creating things ;3"
+        },
+        {
+          "h": "Hobbies",
+          "chips": [
+            "Swimming",
+            "Drawing",
+            "Cooking",
+            "Cosplay",
+            "Gym & fitness"
+          ]
+        }
+      ]
+    },
+    "fridge": {
+      "label": "fav food",
+      "jump": "Fridge · food",
+      "eyebrow": "Fridge · always stocked",
+      "title": "Fuel",
+      "sections": [
+        {
+          "h": "Favourites",
+          "chips": [
+            "Momos",
+            "Pizza",
+            "Chole Bhature",
+            "Chicken Biryani",
+            "Ice cream",
+            "Paneer Parantha",
+            "Ramen"
+          ]
+        },
+        {
+          "p": "I can cook all of these, btw."
+        }
+      ]
+    },
+    "phone": {
+      "label": "call me",
+      "jump": "Phone · contact",
+      "eyebrow": "Telephone · line open",
+      "title": "Let’s talk",
+      "sections": [
+        {
+          "h": "Email",
+          "email": "siddhantnegi275@gmail.com"
+        },
+        {
+          "h": "Elsewhere",
+          "links": [
+            [
+              "LinkedIn",
+              "https://www.linkedin.com/in/siddhantnegii/"
+            ],
+            [
+              "GitHub",
+              "https://github.com/SiddhantNegii"
+            ],
+            [
+              "LeetCode",
+              "https://leetcode.com/siddhantnegi"
+            ]
+          ]
+        }
+      ]
+    }
+  }
+}

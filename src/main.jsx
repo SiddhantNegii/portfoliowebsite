@@ -1,21 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './app';
-import './index.css';
-import { ThemeProvider } from './context/themecontext';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
+import './styles.css';
 
-// Check localStorage for theme and set html class
-const storedTheme = localStorage.getItem("theme");
-if (storedTheme === "dark") {
-  document.documentElement.classList.add("dark");
-} else {
-  document.documentElement.classList.remove("dark");
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
 );

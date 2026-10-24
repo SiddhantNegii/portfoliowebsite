@@ -1,13 +1,21 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en" data-theme="night">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Siddhant's Portfolio</title>
-    <link rel="icon" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{{site.title}}</title>
+    <meta name="description" content="{{site.description}}" />
+    <meta property="og:title" content="{{site.title}}" />
+    <meta property="og:description" content="{{site.shareDescription}}" />
+    <meta name="theme-color" content="#1d1b26" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=JetBrains+Mono:wght@400;600;800&family=Press+Start+2P&display=swap" />
   </head>
-  <body class="bg-light dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+  <body>
     <div id="root"></div>
+    <noscript>{{site.noscript}}</noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
